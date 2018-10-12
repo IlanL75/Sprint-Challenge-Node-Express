@@ -1,0 +1,19 @@
+{
+  "name": "Sprint-Challenge-Node-Express",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/IlanL75/Sprint-Challenge-Node-Express.git",
+  "author": "IlanL75 <anatoly.leytman@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "knex": "^0.15.2",
+    "nodemon": "^1.18.4",
+    "sqlite3": "^4.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  },
+  "scripts": {
+    "start": "nodemon index.js"
+  }
+}
