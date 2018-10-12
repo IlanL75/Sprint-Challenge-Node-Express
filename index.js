@@ -117,6 +117,57 @@ server.delete('/projects/:id', (req, res) => {
 });
 
 
+server.put('actions/:id', (req, res) => {
+    const id = req.params.id;
+    const changes = req.body;
+    actionModel.update(id, changes)
+    .then((id) => {
+        if(!id) {
+            res.status(400).json({message: 'Action with provided id does not exist.'})
+        } else {
+            res.status(200).json(id);
+        }
+    })
+    .catch((error) => {
+        res.status(500).json({message: 'Action could not be updated.'});
+    })
+});
+
+
+server.put('projects/:id', (req, res) => {
+    const id = req.params.id;
+    const changes = req.body;
+    projectModel.update(id, changes)
+    .then((id) => {
+        if(!id) {
+            res.status(400).json({message: 'Project with provided id does not exist.'})
+        } else {
+            res.status(200).json(id);
+        }
+    })
+    .catch((error) => {
+        res.status(500).json({message: 'Project could not be updated.'});
+    })
+});
+
+
+server.get('/projects/:id', (req, res) => {
+    const id = req.params.id;
+    projectModel.getProjectActions(id)
+    .then((id) => {
+        if(!id) {
+            res.status(400).json({message: 'Project with provided id does not exist.'})
+        } else {
+            res.status(200).json(id);
+        }
+    })
+    .catch((error) => {
+        res.status(500).json({message: 'Actions could not be retrieved'});
+    })
+  });
+
+
+
 
 
 const port = 8000;
