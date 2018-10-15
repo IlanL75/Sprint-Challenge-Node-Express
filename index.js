@@ -30,7 +30,6 @@ server.get('/projects', (req, res) => {
     })
 });
 
-
 server.get('/actions/:id', (req, res) => {
     const id = req.params.id;
     actionModel.get(id)
@@ -45,7 +44,6 @@ server.get('/actions/:id', (req, res) => {
         res.status(500).json({message: 'Action could not be retrieved.'});
     })
 });
-
 
 server.get('/projects/:id', (req, res) => {
     const id = req.params.id;
@@ -62,8 +60,8 @@ server.get('/projects/:id', (req, res) => {
     })
 });
 
-
 server.post('/actions', (req, res) => {
+    const action = req.body;
     actionModel.insert(action)
     .then((action) => {
         res.status(200).json(action);
@@ -73,8 +71,8 @@ server.post('/actions', (req, res) => {
     })
 });
 
-
 server.post('/projects', (req, res) => {
+    const project = req.body;
     projectModel.insert(project)
     .then((project) => {
         res.status(200).json(project);
@@ -83,7 +81,6 @@ server.post('/projects', (req, res) => {
         res.status(500).json({message: 'Project could not be saved.'});
     })
 });
-
 
 server.delete('/actions/:id', (req, res) => {
     const id = req.params.id;
@@ -100,7 +97,6 @@ server.delete('/actions/:id', (req, res) => {
     })
 });
 
-
 server.delete('/projects/:id', (req, res) => {
     const id = req.params.id;
     projectModel.remove(id)
@@ -116,31 +112,31 @@ server.delete('/projects/:id', (req, res) => {
     })
 });
 
-
-server.put('actions/:id', (req, res) => {
+server.put('/actions/:id', (req, res) => {
     const id = req.params.id;
     const changes = req.body;
     actionModel.update(id, changes)
     .then((id) => {
-        if(!id) {
-            res.status(400).json({message: 'Action with provided id does not exist.'})
+        if(id === 0) {
+            res.status(400).json({message: 'Action with provided id does not exist.'});
         } else {
             res.status(200).json(id);
         }
     })
     .catch((error) => {
         res.status(500).json({message: 'Action could not be updated.'});
-    })
+    });
 });
 
 
-server.put('projects/:id', (req, res) => {
+
+server.put('/projects/:id', (req, res) => {
     const id = req.params.id;
     const changes = req.body;
     projectModel.update(id, changes)
     .then((id) => {
-        if(!id) {
-            res.status(400).json({message: 'Project with provided id does not exist.'})
+        if(id === 0) {
+            res.status(400).json({message: 'Project with provided id does not exist.'});
         } else {
             res.status(200).json(id);
         }
@@ -151,7 +147,8 @@ server.put('projects/:id', (req, res) => {
 });
 
 
-server.get('/projects/:id', (req, res) => {
+
+server.get('/projects/:id/actions', (req, res) => {
     const id = req.params.id;
     projectModel.getProjectActions(id)
     .then((id) => {
@@ -164,7 +161,7 @@ server.get('/projects/:id', (req, res) => {
     .catch((error) => {
         res.status(500).json({message: 'Actions could not be retrieved'});
     })
-  });
+});
 
 
 
